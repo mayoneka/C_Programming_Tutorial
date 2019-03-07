@@ -46,7 +46,7 @@
 1. Clone 実行
 
 ```
-git clone 
+git clone https://github.com/mayoneka/CSS_Academy_C.git
 ```
 
 
