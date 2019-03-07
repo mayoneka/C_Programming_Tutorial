@@ -28,7 +28,7 @@
 
 ### Github に、ssh の公開鍵を登録する
 
-![1551959214674](C:\Users\mayoneka\github\1551959214674.png)
+![1551959214674](https://github.com/mayoneka/CSS_Academy_C/images/1.jpg)
 
 
 
