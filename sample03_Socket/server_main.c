@@ -6,6 +6,8 @@
 #include <unistd.h> //close()
 
 #define QUEUELIMIT 5
+#define MSGSIZE 1024
+#define BUFSIZE (MSGSIZE + 1)
 
 int main(int argc, char* argv[]) {
 
@@ -15,6 +17,8 @@ int main(int argc, char* argv[]) {
     struct sockaddr_in clitSockAddr; //client internet socket address
     unsigned short servPort; //server port number
     unsigned int clitLen; // client internet socket address length
+    char recvBuffer[BUFSIZE];//receive temporary buffer
+    int recvMsgSize, sendMsgSize; // recieve and send buffer size
 
     if ( argc != 2) {
         fprintf(stderr, "argument count mismatch error.\n");
@@ -52,10 +56,30 @@ int main(int argc, char* argv[]) {
             perror("accept() failed.");
             exit(EXIT_FAILURE);
         }
-
         printf("connected from %s.\n", inet_ntoa(clitSockAddr.sin_addr));
-      close(clitSock);
+
+        while(1) {
+            if ((recvMsgSize = recv(clitSock, recvBuffer, BUFSIZE, 0)) < 0) {
+                perror("recv() failed.");
+                exit(EXIT_FAILURE);
+            } else if(recvMsgSize == 0){
+                fprintf(stderr, "connection closed by foreign host.\n");
+                break;
+            }
+
+            if((sendMsgSize = send(clitSock, recvBuffer, recvMsgSize, 0)) < 0){
+                perror("send() failed.");
+                exit(EXIT_FAILURE);
+            } else if(sendMsgSize == 0){
+                fprintf(stderr, "connection closed by foreign host.\n");
+                break;
+            }
+        }
+
+        close(clitSock);
     }
+
+    close(servSock);
 
     return EXIT_SUCCESS;
 }
