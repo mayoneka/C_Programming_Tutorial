@@ -23,9 +23,12 @@ int main(void)
     if (i==0) {
       /* 先頭の構造体を生成 */
       p = malloc(sizeof(result));
+      /* メモリ確保した領域を0クリア */
+      memset(p, 0, sizeof(p));
       start = p;  /* 先頭を保存 */
     } else {
       p->next = malloc(sizeof(result));
+      memset(p->next, 0, sizeof(p));
       p = p->next;
     }
     /* IDはカウンタ変数から生成 */
@@ -44,5 +47,12 @@ int main(void)
     p = p->next;
   }
 
+  /* メモリクリア */
+  result *temp;
+  while (p != NULL) {
+    temp = p->next;
+    free(p);
+    p = temp;
+  }
   return (0);
 }
