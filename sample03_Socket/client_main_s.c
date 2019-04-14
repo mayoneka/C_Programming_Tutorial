@@ -33,12 +33,12 @@ int main(int argc, char *argv[])
 
     servSockAddr.sin_port = htons(servPort);
 
-    sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
+    sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-        // server 側でいう listen 的な。接続しにいく
-        connect(sock, (struct sockaddr *)&servSockAddr, sizeof(servSockAddr))
+    // server 側でいう listen 的な。接続しにいく
+    connect(sock, (struct sockaddr *)&servSockAddr, sizeof(servSockAddr));
 
-            printf("connect to %s\n", inet_ntoa(servSockAddr.sin_addr));
+    printf("connect to %s\n", inet_ntoa(servSockAddr.sin_addr));
 
     while (1)
     {
