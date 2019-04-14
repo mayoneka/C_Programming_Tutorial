@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
             if (recvBuffer[byteIndex] == '\n')
             {
                 recvBuffer[byteIndex] = '\0';
+                break;
             }
             byteIndex += byteRcvd;
         }
