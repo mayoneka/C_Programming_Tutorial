@@ -9,4 +9,5 @@ int main () {
     # test04
     # test05
     # test06
+    # test07
 }
